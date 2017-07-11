@@ -5,3 +5,11 @@
 .challenge {
   display: none;
 }
+
+.resultPositive {
+  display: none;
+}
+
+.resultNegative {
+  display: none;
+}

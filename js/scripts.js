@@ -28,15 +28,45 @@ var displayString = function(inputtedString) {
   }
 };
 
+var validateGuess = function(original, guess) {
+  for (var k = 0; k <= original.length; k++) {
+    if (original[k] != guess[k]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+var splicedSentence;
+
 $(function() {
   $("#inputValue").submit(function(event) {
     event.preventDefault();
     var sentence = $("#inputSentence").val();
 
-    var splicedSentence = spliceSentence(sentence);
-    var noVowelsSentence = noVowels(splicedSentence);
+    splicedSentence = spliceSentence(sentence);
+    var noVowelsSentence = spliceSentence(sentence);
+    noVowelsSentence = noVowels(noVowelsSentence);
+
+    console.log(splicedSentence);
     console.log(noVowelsSentence);
 
     displayString(noVowelsSentence);
+  });
+
+  $("#guess").submit(function(event) {
+    event.preventDefault();
+    var guess = $("#guessSentence").val();
+    var splicedGuess = spliceSentence(guess);
+
+    var result = validateGuess(splicedSentence, splicedGuess);
+    if (result == true) {
+      console.log("you're on your way!");
+      $(".resultPositive").show();
+    }
+    else {
+      console.log("sorry, try again.")
+      $(".resultNegative").show();
+    }
   });
 });
